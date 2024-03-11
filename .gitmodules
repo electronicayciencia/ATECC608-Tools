@@ -1,0 +1,4 @@
+[submodule "cryptoauthlib"]
+	path = cryptoauthlib
+  url = git@github.com:electronicayciencia/microchip_cryptoauthlib.git
+  branch = eyc
