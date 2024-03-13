@@ -9,8 +9,9 @@
 
 #include <string.h>  // strlen
 #include <stdio.h>   // printf
-#include "cryptoauthlib.h"
 #include "atca_config.h"
+#include "cryptoauthlib.h"
+#include "device_cfg.h"
 
 int main(void) {
     uint8_t message[] = "0123456789";
@@ -19,7 +20,7 @@ int main(void) {
     size_t buffer_size = sizeof(buffer);
 
     // initialize CryptoAuthLib for an ECC default I2C interface
-    if (atcab_init(&atecc608_i2c) != ATCA_SUCCESS) {
+    if (atcab_init(&cfg_atecc608_i2c) != ATCA_SUCCESS) {
         printf("Init error\n");
         exit(1);
     }
