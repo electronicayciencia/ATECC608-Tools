@@ -3,8 +3,8 @@
  *
  */
 
-//#include <string.h>  // strlen
-//#include <stdio.h>   // printf
+#include <string.h>  // strlen
+#include <stdio.h>   // printf
 #include "atca_config.h"
 #include "cryptoauthlib.h"
 #include "device_cfg.h"
@@ -38,25 +38,45 @@ int main(void) {
     puts("Sizes:");
 
     size_t config_size;
+    bool config_locked;
     atcab_get_zone_size(ATCA_ZONE_CONFIG, 0, &config_size);
-    printf("  Config: %d\n", config_size);
+    atcab_is_config_locked(&config_locked);	
+    printf("  Config: %d (locked: %s)\n", config_size, config_locked ? "yes" : "no");
 
     size_t otp_size;
     atcab_get_zone_size(ATCA_ZONE_OTP, 0, &otp_size);
     printf("  OTP: %d\n", otp_size);
     
     size_t data_size;
+    bool data_locked;
+    atcab_is_data_locked(&data_locked);	
     atcab_get_zone_size(ATCA_ZONE_DATA, 0, &data_size);
-    printf("  Data: %d\n", data_size);
+    printf("  Data: %d (locked: %s)\n", data_size, data_locked ? "yes" : "no");
 
-    /*
-    atcab_bin2hex(digest, sizeof(digest), buffer, &buffer_size);
 
-    puts("");
-    puts("SHA256 output:");
-    puts(buffer);
-    puts("");
-    */
+
+    // Read config data
+    //  88 bytes for ATSHA devices, 128 bytes for ATECC devices and 48 bytes for Trust Anchor devices.
+    uint8_t config_data[128];
+
+    if (atcab_read_config_zone(config_data) != ATCA_SUCCESS) {
+        printf("Error reading config\n");
+        exit(1);
+    }
+    else {
+
+        uint8_t buffer[128*4];
+        size_t buffer_size = sizeof(buffer);
+        atcab_bin2hex(config_data, config_size, buffer, &buffer_size);
+
+        puts("");
+        puts("Config data:");
+        puts(buffer);
+        puts("");
+
+    }
+
+
 
 }
 
