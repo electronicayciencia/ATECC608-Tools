@@ -10,6 +10,7 @@
 #include "device_cfg.h"
 
 int main(void) {
+    ATCA_STATUS stauts;
 
     puts("Library symbols:");
     printf("  ATCA_CA_SUPPORT: %d\n", ATCA_CA_SUPPORT);
@@ -76,6 +77,25 @@ int main(void) {
 
     }
 
+
+    // Value of counters
+    uint32_t counter_value = 0;
+    atcab_counter(0, 0, &counter_value);
+    printf("Counter 0: %6zu\n", counter_value);
+    atcab_counter(0, 1, &counter_value);
+    printf("Counter 1: %6zu\n", counter_value);
+
+
+    // Try to read OTP
+    uint8_t otp_data[64];
+    if (atcab_read_bytes_zone(ATCA_ZONE_OTP, 0, 0, otp_data, 64) == ATCA_SUCCESS) {
+        printf("OTP Contents: ");
+        for(int i = 0; i < 64; i++) putchar(otp_data[i]);
+        puts("");
+    }
+    else {
+        puts("Cannot read OTP");
+    }
 
 
 }
