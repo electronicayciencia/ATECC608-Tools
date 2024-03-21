@@ -9,6 +9,15 @@
 #include "cryptoauthlib.h"
 #include "device_cfg.h"
 
+/* Read a character and flush the stdin */
+char getkey(void) {
+    char v, d; // valid / discarded
+    v = getchar();
+    while((d = getchar()) != '\n' && d != EOF);
+    return v;
+}
+
+
 int main(void) {
     char ch;
     ATCA_STATUS status;
@@ -23,6 +32,10 @@ int main(void) {
         exit(1);
     }
 
+
+    // TODO: check device ECC
+
+
     // Read config data
     //  88 bytes for ATSHA devices, 128 bytes for ATECC devices and 48 bytes for Trust Anchor devices.
     if (atcab_read_config_zone(config_buffer) != ATCA_SUCCESS) {
@@ -36,6 +49,10 @@ int main(void) {
     puts("Current config data:");
     puts(text_buffer);
     puts("");
+
+
+    // TODO: Check config locked
+
 
     int slot = 0;
 
@@ -52,7 +69,7 @@ int main(void) {
     config_data->KeyConfig[slot] = 
         ATCA_KEY_CONFIG_PRIVATE_MASK       // The key slot contains an ECC private key
       | ATCA_KEY_CONFIG_PUB_INFO_MASK      // The public version of this key can always be generated.
-      | ATCA_KEY_CONFIG_KEY_TYPE(4)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+      | ATCA_KEY_CONFIG_KEY_TYPE(ATCA_P256_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -79,7 +96,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(6)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE) // Key type
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -107,7 +124,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(6)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -133,7 +150,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(6)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -159,7 +176,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -187,7 +204,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -212,7 +229,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -236,7 +253,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
@@ -261,7 +278,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       ;
 
@@ -285,7 +302,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(4)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(4)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       ;
 
@@ -311,7 +328,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       ;
 
@@ -337,7 +354,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       ;
 
@@ -350,18 +367,23 @@ int main(void) {
 
     // --------------
     // --------------
-    // Slot 12: Rolling key from Target key, debug
+    // Slot 12: Secret AES key authorized by key 13
     
     // General Purpose Slot Config (Not ECC Private Keys)
     config_data->SlotConfig[slot] = 
-        ATCA_SLOT_CONFIG_READKEY(7)        // Use this KeyID to encrypt data read from this slot. 0 only for CheckMac/Copy
-      | ATCA_SLOT_CONFIG_WRITE_KEY(7)      // Use this key to validate and encrypt data written to this slot
-      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0b0010)  // DeriveKey command can be run without authorizing MAC (roll).
+        ATCA_SLOT_CONFIG_READKEY(13)        // Use this KeyID to encrypt data read from this slot. 0 only for CheckMac/Copy
+      | ATCA_SLOT_CONFIG_NOMAC_MASK        // The key stored in the slot cannot be used by the MAC or HMAC commands. 
+      | ATCA_SLOT_CONFIG_IS_SECRET_MASK    // The contents of this slot are secret
+      | ATCA_SLOT_CONFIG_WRITE_KEY(13)      // Use this key to validate and encrypt data written to this slot
+      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0b1011)  // Authorizing MAC required for DeriveKey command. (Create)
       ;
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
+      | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
+      | ATCA_KEY_CONFIG_REQ_AUTH_MASK      // To use this key, authorization by AuthKey must be completed
+      | ATCA_KEY_CONFIG_AUTH_KEY(13)        // If ReqAuth is one, this field points to the key that must be used for authorization 
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -373,18 +395,21 @@ int main(void) {
 
     // --------------
     // --------------
-    // Slot 13: Rolling key from Parent key, debug
+    // Slot 13: SHA secret to use key 12. Can be changed if it is known.
     
     // General Purpose Slot Config (Not ECC Private Keys)
     config_data->SlotConfig[slot] = 
-        ATCA_SLOT_CONFIG_READKEY(7)        // Use this KeyID to encrypt data read from this slot. 0 only for CheckMac/Copy
-      | ATCA_SLOT_CONFIG_WRITE_KEY(7)      // Use this key to validate and encrypt data written to this slot
-      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0b0011)  // DeriveKey command can be run without authorizing MAC (create).
+        ATCA_SLOT_CONFIG_READKEY(13)        // Use this KeyID to encrypt data read from this slot. 0 only for CheckMac/Copy
+      | ATCA_SLOT_CONFIG_IS_SECRET_MASK    // The contents of this slot are secret
+      | ATCA_SLOT_CONFIG_WRITE_KEY(13)      // Use this key to validate and encrypt data written to this slot
+      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0b0100)   // Encrypt write (with itself)
       ;
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
+      | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
+      | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -407,7 +432,7 @@ int main(void) {
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(4)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_P256_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       ;
 
@@ -420,22 +445,18 @@ int main(void) {
 
     // --------------
     // --------------
-    // Slot 15: SHA secret, 255 limited uses
+    // Slot 15: Data (ATECC608 does not support slot 15 limited use like ATECC508)
     
     // General Purpose Slot Config (Not ECC Private Keys)
     config_data->SlotConfig[slot] = 
-        ATCA_SLOT_CONFIG_READKEY(7)        // Use this KeyID to encrypt data read from this slot. 0 only for CheckMac/Copy
-      | ATCA_SLOT_CONFIG_LIMITED_USE_MASK  // The key stored in the slot is Limited Use.
-      | ATCA_SLOT_CONFIG_IS_SECRET_MASK    // The contents of this slot are secret
-      | ATCA_SLOT_CONFIG_WRITE_KEY(7)      // Use this key to validate and encrypt data written to this slot
-      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0)   // Clear W
+        ATCA_SLOT_CONFIG_WRITE_KEY(7)      // Use this key to validate and encrypt data written to this slot
+      | ATCA_SLOT_CONFIG_WRITE_CONFIG(0b0100)   // Encrypted W
       ;
 
     // Key Config
     config_data->KeyConfig[slot] = 
-        ATCA_KEY_CONFIG_KEY_TYPE(7)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+        ATCA_KEY_CONFIG_KEY_TYPE(ATCA_SHA_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
-      | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -479,7 +500,7 @@ int main(void) {
     config_data->KeyConfig[slot] = 
         ATCA_KEY_CONFIG_PRIVATE_MASK       // The key slot contains an ECC private key
       | ATCA_KEY_CONFIG_PUB_INFO_MASK      // The public version of this key can always be generated.
-      | ATCA_KEY_CONFIG_KEY_TYPE(v)        // 4: P256 NIST ECC key / 6: AES-256 key / 7: Not an ECC key
+      | ATCA_KEY_CONFIG_KEY_TYPE(v)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
       | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
       | ATCA_KEY_CONFIG_REQ_AUTH_MASK      // To use this key, authorization by AuthKey must be completed
@@ -509,14 +530,110 @@ int main(void) {
     puts(text_buffer);
     puts("");
 
-    printf("Write configuration [y/n] ");
-    ch = getchar();
+    printf("Write configuration? [y/n] ");
+    ch = getkey();
     if (ch == 'y' || ch == 'Y') {
         if (status = atcab_write_config_zone (config_buffer) == ATCA_SUCCESS) {
-            puts("write OK");
+            puts("Write OK");
         }
         else {
             printf("Write Error: 0x%02x\n", status);
+            exit(1);
+        }
+    }
+
+
+    // Counters
+    status = atcab_write_config_counter(0, 1000);
+    if (status == ATCA_SUCCESS) {
+        puts("Write Counter0 OK");
+    }
+    else {
+        printf("Write Counter0 Error: %d\n", status);
+        //exit(1);
+    }
+
+    status = atcab_write_config_counter(1, 1000);
+    if (status == ATCA_SUCCESS) {
+        puts("Write Counter1 OK");
+    }
+    else {
+        printf("Write Counter1 Error: %d\n", status);
+        //exit(1);
+    }
+
+
+    // Lock config
+    printf("Lock config now? [y/n] ");
+    ch = getkey();
+    if (ch == 'y' || ch == 'Y') {
+        status = atcab_lock_config_zone();
+        if (status == ATCA_SUCCESS) {
+            puts("Lock config OK");
+        }
+        else {
+            printf("Lock config error: %d\n", status);
+            exit(1);
+        }
+    }
+
+
+    // Write OTP
+    uint8_t *otpdata = "1.0|2024/03/21|Electronica y Ciencia|www.electronicayciencia.com";
+
+    status = atcab_write_bytes_zone(ATCA_ZONE_OTP, 0, 0, otpdata, 64);
+    if (status == ATCA_SUCCESS) {
+        puts("OTP write OK");
+    }
+    else {
+        printf("OTP write error: %d\n", status);
+        exit(1);
+    }
+
+
+    // Get a random number
+    uint8_t random_number[32];
+    uint8_t txt_buffer[32*5];
+    size_t txt_buffer_size = sizeof(txt_buffer);
+
+    atcab_random(random_number); // get a random number from the chip
+    atcab_bin2hex(random_number, sizeof(random_number), txt_buffer, &txt_buffer_size);
+
+    puts("");
+    puts("Random output:");
+    puts(txt_buffer);
+    puts("");
+
+
+    // Write random to slots 7 and 13
+    status = atcab_write_bytes_zone(ATCA_ZONE_DATA, 7, 0, random_number, 32);
+    if (status == ATCA_SUCCESS) {
+        puts("Slot 7 write OK");
+    }
+    else {
+        printf("Slot 7 write errorr: %d\n", status);
+        exit(1);
+    }
+
+    status = atcab_write_bytes_zone(ATCA_ZONE_DATA, 13, 0, random_number, 32);
+    if (status == ATCA_SUCCESS) {
+        puts("Slot 13 write OK");
+    }
+    else {
+        printf("Slot 13 write error: %d\n", status);
+        exit(1);
+    }
+
+    // Lock data
+    printf("Lock Data & OTP now? [y/n] ");
+    ch = getkey();
+    if (ch == 'y' || ch == 'Y') {
+        status = atcab_lock_data_zone();
+        if (status == ATCA_SUCCESS) {
+            puts("Lock Data & OTP OK");
+        }
+        else {
+            printf("Lock Data & OTP error: %d\n", status);
             exit(1);
         }
     }
