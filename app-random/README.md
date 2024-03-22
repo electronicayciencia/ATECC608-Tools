@@ -6,17 +6,21 @@ Some *random* applications to get in touch with the library.
 - `sha`: Calculate SHA256 of the message.
 - `chip_info`: Dump some information about the device.
 - `setup_608`: Configure ATECC608 with the configuration below.
+- `aes_encrypt`: Encrypt a given block using AES-128 ECB. Work with key
+  3 because it does not require random nonce.
+- `aes_encrypt_nonce`: Work in progress. 
+- `write_8`: Write data in slot 08.
 
 ## Setup 608 configuration
 
 Slot | Key Type    | Read | Write | Usage
 ----:|-------------|------|-------|-------------
   00 | ECC Private | No   | Yes   | Device key. No usage restrictions.
-  01 | AES         | 7    | 7     | Symmetric key.
-  02 | AES         | 7    | 7     | Symmetric key with limited uses.
+  01 | AES         | 7    | 7     | Symmetric key. Require random.
+  02 | AES         | 7    | 7     | Symmetric key with limited uses. Require random.
   03 | AES         | Yes  | Yes   | Symmetric key for debug.
-  04 | SHA         | 7    | 7     | Secret.
-  05 | SHA         | 7    | 7     | Secret with limited uses.
+  04 | SHA         | 7    | 7     | Secret. Require random.
+  05 | SHA         | 7    | 7     | Secret with limited uses. Require random.
   06 | SHA         | Yes  | Yes   | Secret for debug.
   07 | SHA         | 7    | 7     | Secret for encrypted I/O.
   08 | Data        | Yes  | Yes   | Info: Date, Model, Trademark, uuid.
@@ -51,4 +55,12 @@ things.
 `make`
 
 That's it.
+
+## Run
+
+Setup `~/.bashrc`:
+
+```bash
+export LD_LIBRARY_PATH=$HOME/atca/cryptoauthlib/lib
+```
 

@@ -84,6 +84,7 @@ int main(void) {
     printf("Counter 0: %6zu\n", counter_value);
     atcab_counter(0, 1, &counter_value);
     printf("Counter 1: %6zu\n", counter_value);
+    puts("");
 
 
     // Try to read OTP
@@ -96,6 +97,7 @@ int main(void) {
     else {
         puts("Cannot read OTP");
     }
+    puts("");
 
 
 
