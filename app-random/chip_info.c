@@ -98,5 +98,20 @@ int main(void) {
     }
 
 
+
+    // Try to read data slot contents
+    for (int i = 0; i <= 15; i++) {
+        printf("Slot %2d: ", i);
+
+        uint8_t slot_data[32];
+        if (atcab_read_bytes_zone(ATCA_ZONE_DATA, i, 0, slot_data, 32) == ATCA_SUCCESS) {
+            for(int i = 0; i < 32; i++) printf("%02x ", slot_data[i]);
+            puts("");
+        }
+        else {
+            puts("<secret>");
+        }
+
+    }
 }
 
