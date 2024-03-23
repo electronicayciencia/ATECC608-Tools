@@ -9,8 +9,19 @@
 #include "cryptoauthlib.h"
 #include "device_cfg.h"
 
+/* Versatile hex printer */
+void printhex(const char *label, char *buffer, size_t len, const char *spacer) {
+    printf("%s: ", label);
+
+    for (int i = 0; i < len; i++)
+        printf("%02x%s", buffer[i], spacer);
+
+    puts("");
+}
+
+
 int main(void) {
-    ATCA_STATUS stauts;
+    ATCA_STATUS status;
 
     puts("Library symbols:");
     printf("  ATCA_CA_SUPPORT: %d\n", ATCA_CA_SUPPORT);
@@ -55,6 +66,15 @@ int main(void) {
     printf("  Data: %d (locked: %s)\n", data_size, data_locked ? "yes" : "no");
 
 
+    // Serial number
+    uint8_t sn[ATCA_SERIAL_NUM_SIZE];
+    if ((status = atcab_read_serial_number(sn)) != ATCA_SUCCESS) {
+        printf("Error reading Serial Number: %d\n", status);
+    }
+    else {
+        printhex("SN", sn, ATCA_SERIAL_NUM_SIZE, "");
+    }
+    puts("");
 
     // Read config data
     //  88 bytes for ATSHA devices, 128 bytes for ATECC devices and 48 bytes for Trust Anchor devices.

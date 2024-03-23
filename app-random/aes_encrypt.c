@@ -9,7 +9,7 @@
 #include "cryptoauthlib.h"
 #include "device_cfg.h"
 
-#define SLOT 3
+#define SLOT 1
 
 int main(void) {
     ATCA_STATUS status;

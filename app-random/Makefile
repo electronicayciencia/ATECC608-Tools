@@ -2,7 +2,7 @@ GCC=gcc -I../cryptoauthlib/lib -L../cryptoauthlib/lib -lcryptoauth
 DEPS_H=atca_config.h device_cfg.h
 DEPS_C=device_cfg.c
 
-all: random chip_info sha setup_608 aes_encrypt aes_encrypt_nonce write_8
+all: random chip_info sha setup_608 aes_encrypt aes_encrypt_nonce write_8	eyc_original
 
 random: $(DEPS_C) $(DEPS_H) random.c
 	$(GCC) -o random random.c $(DEPS_C)
@@ -24,4 +24,7 @@ aes_encrypt_nonce: $(DEPS_C) $(DEPS_H) aes_encrypt_nonce.c
 
 write_8: $(DEPS_C) $(DEPS_H) write_8.c
 	$(GCC) -o write_8 write_8.c $(DEPS_C)
+
+eyc_original: $(DEPS_C) $(DEPS_H) eyc_original.c
+	$(GCC) -o eyc_original eyc_original.c $(DEPS_C)
 

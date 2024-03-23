@@ -45,11 +45,11 @@ int main(void) {
         puts("");
         
         status = atcab_write_bytes_zone(ATCA_ZONE_DATA, SLOT, start, buffer, BLOCK_LEN);
-    }
 
-    if (status != ATCA_SUCCESS) {
-        printf("Slot write error: %d\n", status);
-        exit(1);
+        if (status != ATCA_SUCCESS) {
+            printf("Slot write error: %d\n", status);
+            exit(1);
+        }
     }
 
     puts("Ok");
