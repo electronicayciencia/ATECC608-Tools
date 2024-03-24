@@ -7,7 +7,7 @@
 #include <stdio.h>   // printf
 #include "atca_config.h"
 #include "cryptoauthlib.h"
-#include "device_cfg.h"
+#include "common.h"
 
 #define SLOT 6
 

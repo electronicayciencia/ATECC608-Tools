@@ -7,7 +7,7 @@
 #include <stdio.h>   // printf
 #include "atca_config.h"
 #include "cryptoauthlib.h"
-#include "device_cfg.h"
+#include "common.h"
 
 
 #include "host/atca_host.h"
@@ -21,18 +21,6 @@
 #define ATCA_SOURCEFLAG_INPUT   (1)
 
 ATCA_STATUS symmetric_authenticate(uint8_t slot, const uint8_t *master_key, const uint8_t *rand_number);
-
-
-/* Versatile hex printer */
-void printhex(const char *label, char *buffer, size_t len, const char *spacer) {
-    printf("%s: ", label);
-    
-    for (int i = 0; i < len; i++)
-        printf("%02x%s", buffer[i], spacer);
-
-    puts("");
-}
-
 
 int main(void) {
     ATCA_STATUS status;

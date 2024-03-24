@@ -7,18 +7,7 @@
 #include <stdio.h>   // printf
 #include "atca_config.h"
 #include "cryptoauthlib.h"
-#include "device_cfg.h"
-
-/* Versatile hex printer */
-void printhex(const char *label, char *buffer, size_t len, const char *spacer) {
-    printf("%s: ", label);
-
-    for (int i = 0; i < len; i++)
-        printf("%02x%s", buffer[i], spacer);
-
-    puts("");
-}
-
+#include "common.h"
 
 int main(void) {
     ATCA_STATUS status;

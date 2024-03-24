@@ -11,7 +11,7 @@
 #include <stdio.h>   // printf
 #include "atca_config.h"
 #include "cryptoauthlib.h"
-#include "device_cfg.h"
+#include "common.h"
 
 int main(void) {
     uint8_t message[] = "0123456789";
