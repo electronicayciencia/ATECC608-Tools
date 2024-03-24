@@ -1,5 +1,5 @@
 /* 
- * Encrypt a value with an AES key that requires a nonce.
+ * Generate a random nonce with a challenge.
  */
 
 

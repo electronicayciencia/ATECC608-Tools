@@ -55,16 +55,6 @@ int main(void) {
     printf("  Data: %d (locked: %s)\n", data_size, data_locked ? "yes" : "no");
 
 
-    // Serial number
-    uint8_t sn[ATCA_SERIAL_NUM_SIZE];
-    if ((status = atcab_read_serial_number(sn)) != ATCA_SUCCESS) {
-        printf("Error reading Serial Number: %d\n", status);
-    }
-    else {
-        printhex("SN", sn, ATCA_SERIAL_NUM_SIZE, "");
-    }
-    puts("");
-
     // Read config data
     //  88 bytes for ATSHA devices, 128 bytes for ATECC devices and 48 bytes for Trust Anchor devices.
     uint8_t config_data[128];
@@ -85,6 +75,16 @@ int main(void) {
         puts("");
 
     }
+
+    // Serial number
+    uint8_t sn[ATCA_SERIAL_NUM_SIZE];
+    if ((status = atcab_read_serial_number(sn)) != ATCA_SUCCESS) {
+        printf("Error reading Serial Number: %d\n", status);
+    }
+    else {
+        printhex("SN", sn, ATCA_SERIAL_NUM_SIZE, "");
+    }
+    puts("");
 
 
     // Value of counters
