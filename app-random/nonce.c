@@ -9,8 +9,6 @@
 #include "cryptoauthlib.h"
 #include "common.h"
 
-#define SLOT 3
-
 int main(int argc, const char **argv) {
     ATCA_STATUS status;
     size_t binsize = NONCE_NUMIN_SIZE;
