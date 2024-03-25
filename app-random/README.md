@@ -4,12 +4,13 @@ Some *random* applications to get in touch with the library.
 
 Simple commands:
 
-- `aes_encrypt`: Encrypt a given block using AES-128 ECB.
+- `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
+- `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
 - `gendig`: Issue a gendig-data command with the specified slot.
 - `mac`: Generate a MAC of the TempKey + Slot Key
 - `nonce`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
-- `read_slot`: Read 32 bits of slot data (cleartext)
+- `read_slot`: Read the first 32 bits from a data slot (cleartext)
 - `serial`: Get the chip's serial number.
 - `sha`: Calculate SHA256 of the message.
 - `write_8`: Write data in slot 08.
@@ -22,14 +23,18 @@ Use cases:
 - `setup_608`: Configure ATECC608 with the configuration below.
 
 
+Tools:
+
+- `xor`: Get two hexadecimal strings and return the xor.
+
 
 ## Setup 608 configuration
 
 Slot | Key Type    | Read | Write | Usage
 ----:|-------------|------|-------|-------------
   00 | ECC Private | No   | Yes   | Device key. No usage restrictions.
-  01 | AES         | 7    | 7     | Symmetric key. Require random.
-  02 | AES         | 7    | 7     | Symmetric key with limited uses. Require random.
+  01 | AES         | 7    | 7     | Symmetric key.
+  02 | AES         | 7    | 7     | Symmetric key with limited uses.
   03 | AES         | Yes  | Yes   | Symmetric key for debug.
   04 | SHA         | 7    | 7     | Secret. Require random.
   05 | SHA         | 7    | 7     | Secret with limited uses. Require random.
@@ -39,8 +44,8 @@ Slot | Key Type    | Read | Write | Usage
   09 | ECC Public  | Yes  | Yes   | Public key for ECC on key 1.
   10 | SHA         | 0    | 7     | Secret for Checkmac/Copy source.
   11 | SHA         | 0    | 7     | Secret for Checkmac/Copy destination.
-  12 | AES         | No   | 13    | Requires authorization by key 13.
-  13 | SHA         | No   | 13    | Secret to protect key 12. Requires Nonce.
+  12 | AES         | No   | 13    | Symmetric key. Secret. Requires authorization by key 13.
+  13 | SHA         | No   | 13    | Secret to protect key 12. Require random.
   14 | ECC Public  | Yes  | Yes   | External key storage.
   15 | Data        | Yes  | 7     | Info.
 

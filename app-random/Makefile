@@ -2,8 +2,8 @@ GCC=gcc -I../cryptoauthlib/lib -L../cryptoauthlib/lib -lcryptoauth
 DEPS_H=atca_config.h common.h
 DEPS_C=common.c
 
-all: random chip_info sha setup_608 aes_encrypt nonce write_8 \
-	serial mac gendig read_slot
+all: random chip_info sha setup_608 aes_encrypt aes_decrypt nonce write_8 \
+	serial mac gendig read_slot xor
 
 random: $(DEPS_C) $(DEPS_H) random.c
 	$(GCC) -o random random.c $(DEPS_C)
@@ -37,4 +37,10 @@ gendig: $(DEPS_C) $(DEPS_H) gendig.c
 
 read_slot: $(DEPS_C) $(DEPS_H) read_slot.c
 	$(GCC) -o read_slot read_slot.c $(DEPS_C)
+
+aes_decrypt: $(DEPS_C) $(DEPS_H) aes_decrypt.c
+	$(GCC) -o aes_decrypt aes_decrypt.c $(DEPS_C)
+
+xor: $(DEPS_C) $(DEPS_H) xor.c
+	$(GCC) -o xor xor.c $(DEPS_C)
 

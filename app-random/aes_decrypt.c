@@ -1,5 +1,5 @@
 /* 
- * Encrypt a 16 bytes block using the key in a given slot.
+ * Decrypt a 16 bytes block using the key in a given slot.
  */
 
 
@@ -17,10 +17,10 @@ int main(int argc, const char **argv) {
     uint8_t ciphertext[ATCA_AES128_BLOCK_SIZE];
     
     if (argc != 3) {
-        printf("AES-128 encrypt a %d bytes block using the key in a given slot.", ATCA_AES128_BLOCK_SIZE);
+        printf("AES-128 decrypt a %d bytes block using the key in a given slot.", ATCA_AES128_BLOCK_SIZE);
         printf("Usage %s <slot> <data>\n", argv[0]);
         printf("Where <slot> is the key slot (0-15) and data %d hex bytes.\n", ATCA_AES128_BLOCK_SIZE);
-        printf("Ex.: %s 3 00000000000000000000000000000000\n", argv[0]);
+        printf("Ex.: %s 3 a1f6258c877d5fcd8964484538bfc92c\n", argv[0]);
         exit(2);
     }
 
@@ -36,7 +36,7 @@ int main(int argc, const char **argv) {
         exit(2);
     }
 
-    status = atcab_hex2bin(argv[2], 2*ATCA_AES128_BLOCK_SIZE, cleartext, &textsize);
+    status = atcab_hex2bin(argv[2], 2*ATCA_AES128_BLOCK_SIZE, ciphertext, &textsize);
 
     if (status != ATCA_SUCCESS) {
         printf("Malformed hex data: %d\n", status);
@@ -51,13 +51,13 @@ int main(int argc, const char **argv) {
         exit(1);
     }
 
-    status = atcab_aes_encrypt(slot, 0, cleartext, ciphertext);
+    status = atcab_aes_decrypt(slot, 0, ciphertext, cleartext);
 
     if (status != ATCA_SUCCESS) {
         printf("AES error: %d\n", status);
         exit(1);
     }
 
-    printhex(NULL, ciphertext, ATCA_AES128_BLOCK_SIZE, "");
+    printhex(NULL, cleartext, ATCA_AES128_BLOCK_SIZE, "");
 }
 

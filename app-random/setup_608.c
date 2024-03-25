@@ -98,7 +98,7 @@ int main(void) {
     config_data->KeyConfig[slot] = 
         ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE) // Key type
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
-      | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
+      //| ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.   FIXME: don't use this for aes keys.
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
@@ -126,7 +126,7 @@ int main(void) {
     config_data->KeyConfig[slot] = 
         ATCA_KEY_CONFIG_KEY_TYPE(ATCA_AES_KEY_TYPE)        // 4: P256 NIST ECC key / 6: AES-128 key / 7: Not an ECC key
       | ATCA_KEY_CONFIG_LOCKABLE_MASK      // Slot can be individually locked using the Lock command.
-      | ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.
+      //| ATCA_KEY_CONFIG_REQ_RANDOM_MASK    // A random nonce is required.   FIXME: don't use this for aes keys.
       ;
 
     printf("[%02d]  SlotConfig: %04x   KeyConfig: %04x\n", 
