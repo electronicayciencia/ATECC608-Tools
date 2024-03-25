@@ -56,9 +56,7 @@ tempkey=$(echo $tempkey_msg | xxd -r -p | sha256sum | cut -d ' ' -f 1)
 ############################################
 opcode=15
 param1=02
-param2=0800
-sn8=ee
-sn01=0123
+param2=$(printf "%02x00" $dataslot)
 zeros=00000000000000000000000000000000000000000000000000
 tempkey_msg=$slotdata$opcode$param1$param2$sn8$sn01$zeros$tempkey
 tempkey=$(echo $tempkey_msg | xxd -r -p | sha256sum | cut -d ' ' -f 1)
