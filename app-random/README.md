@@ -2,14 +2,26 @@
 
 Some *random* applications to get in touch with the library.
 
+Simple commands:
+
+- `aes_encrypt`: Encrypt a given block using AES-128 ECB.
+- `gendig`: Issue a gendig-data command with the specified slot.
+- `mac`: Generate a MAC of the TempKey + Slot Key
+- `nonce`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
+- `read_slot`: Read 32 bits of slot data (cleartext)
+- `serial`: Get the chip's serial number.
 - `sha`: Calculate SHA256 of the message.
-- `chip_info`: Dump some information about the device.
-- `setup_608`: Configure ATECC608 with the configuration below.
-- `aes_encrypt`: Encrypt a given block using AES-128 ECB. Work with key
-  3 because it does not require random nonce.
-- `aes_encrypt_nonce`: Work in progress. 
 - `write_8`: Write data in slot 08.
+
+
+Use cases:
+
+- `chip_info`: Dump some information about the device.
+- `eyc_original.sh`: Verify an Original EyC component and retrieve verified data from a slot.
+- `setup_608`: Configure ATECC608 with the configuration below.
+
+
 
 ## Setup 608 configuration
 
