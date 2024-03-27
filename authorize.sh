@@ -41,7 +41,7 @@ sn8=${sn:16:2}
 ############################################
 # Get random nonce, data and device MAC
 ############################################
-nonce_out=`./nonce $nonce_in`    # create nonce
+nonce_out=`./nonce_rand $nonce_in`    # create nonce
 #echo "Nonce:        $nonce_out"
 
 

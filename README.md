@@ -11,7 +11,8 @@ Simple commands:
 - `check_mac`: Issue a Check MAC command that can also be used to authorize a key.
 - `gendig`: Issue a gendig-data command with the specified slot.
 - `mac`: Generate a MAC of the TempKey + Slot Key
-- `nonce`: Generate a random nonce with a challenge.
+- `nonce`: Load TempKey with a given value.
+- `nonce_rand`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
 - `read_slot`: Read the first 32 bits from a data slot (cleartext)
 - `serial`: Get the chip's serial number.

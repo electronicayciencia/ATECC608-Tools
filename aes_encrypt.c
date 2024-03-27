@@ -19,7 +19,9 @@ int main(int argc, const char **argv) {
     if (argc != 3) {
         printf("AES-128 encrypt a %d bytes block using the key in a given slot.", ATCA_AES128_BLOCK_SIZE);
         printf("Usage %s <slot> <data>\n", argv[0]);
-        printf("Where <slot> is the key slot (0-15) and data %d hex bytes.\n", ATCA_AES128_BLOCK_SIZE);
+        printf("Where:\n");
+        printf("    <slot> is the key slot (0-15) or TEMPKEY to use the current Tempkey as the key.");
+        printf("    <data> is the data to encrypt (%d hex bytes).\n", ATCA_AES128_BLOCK_SIZE);
         printf("Ex.: %s 3 00000000000000000000000000000000\n", argv[0]);
         exit(2);
     }
@@ -29,11 +31,16 @@ int main(int argc, const char **argv) {
         exit(2);
     }
 
-    slot = atoi(argv[1]);
+    if (strcmp(argv[1], "TEMPKEY") == 0) {
+        slot = ATCA_TEMPKEY_KEYID;
+    }
+    else {
+        slot = atoi(argv[1]);
 
-    if (slot < 0 || slot > 15) {
-        puts("Slot must be between 0 and 15.");
-        exit(2);
+        if (slot < 0 || slot > 15) {
+            puts("Slot must be between 0 and 15.");
+            exit(2);
+        }
     }
 
     status = atcab_hex2bin(argv[2], 2*ATCA_AES128_BLOCK_SIZE, cleartext, &textsize);

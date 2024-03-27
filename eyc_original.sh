@@ -32,7 +32,7 @@ echo "Serial:       $sn"
 ############################################
 # Get random nonce, data and device MAC
 ############################################
-nonce_out=`./nonce $nonce_in`    # create nonce
+nonce_out=`./nonce_rand $nonce_in`    # create nonce
 out=`./gendig $dataslot`         # incorporate data Digest to TempKey
 device_mac=`./mac $keyslot`      # create mac with the key
 slotdata=`./read_slot $dataslot` # Get cleartext data

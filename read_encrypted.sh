@@ -42,7 +42,7 @@ sn8=${sn:16:2}
 ############################################
 # Get random nonce, data and device MAC
 ############################################
-nonce_out=`./nonce $nonce_in`    # create nonce
+nonce_out=`./nonce_rand $nonce_in`    # create nonce
 out=`./gendig $keyslot`          # incorporate key Digest to TempKey
 slotdata=`./read_slot $dataslot` # Get encrypted data
 
