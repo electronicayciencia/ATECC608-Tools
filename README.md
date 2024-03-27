@@ -15,8 +15,8 @@ Simple commands:
 - `read_slot`: Read the first 32 bits from a data slot (cleartext)
 - `serial`: Get the chip's serial number.
 - `sha`: Calculate SHA256 of the message.
+- `state`: Display device internal state.
 - `write_8`: Write data in slot 08.
-
 
 Use cases (multiple commands):
 
