@@ -8,6 +8,7 @@ Simple commands:
 
 - `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
+- `check_mac`: Issue a Check MAC command that can also be used to authorize a key.
 - `gendig`: Issue a gendig-data command with the specified slot.
 - `mac`: Generate a MAC of the TempKey + Slot Key
 - `nonce`: Generate a random nonce with a challenge.
@@ -20,6 +21,7 @@ Simple commands:
 
 Use cases (multiple commands):
 
+- `authorize.sh`: Performs a Check MAC with an authorization key in order to tell the device we know that key.
 - `chip_info`: Dump some information about the device.
 - `eyc_original.sh`: Verify an Original EyC component and retrieve verified data from a slot.
 - `read_encrypted.sh`: Read the contents of any slot encrypted with a Read key.
