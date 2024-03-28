@@ -4,14 +4,14 @@ Tools to work with Atmel Crypto-Authentication (ATCA) library and devices.
 
 ## Tools list
 
-Simple commands:
+Primitives (simple commands):
 
-- `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
+- `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
 - `check_mac`: Issue a Check MAC command that can also be used to authorize a key.
 - `gendig`: Issue a gendig-data command with the specified slot.
+- `load_tempkey`: Load TempKey with a given value.
 - `mac`: Generate a MAC of the TempKey + Slot Key
-- `nonce`: Load TempKey with a given value.
 - `nonce_rand`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
 - `read_slot`: Read the first 32 bits from a data slot (cleartext)
@@ -19,9 +19,13 @@ Simple commands:
 - `sha`: Calculate SHA256 of the message.
 - `state`: Display device internal state.
 - `write_8`: Write data in slot 08.
+- `write_enc`: Write data using a writing key.
+
 
 Use cases (multiple commands):
 
+- `auth_aes_dec`: Decrypt a block of data using a secret symmetric key that requires Authorization
+- `auth_aes_enc`: Encrypt a block of data using a secret symmetric key that requires Authorization
 - `authorize.sh`: Performs a Check MAC with an authorization key in order to tell the device we know that key.
 - `chip_info`: Dump some information about the device.
 - `eyc_original.sh`: Verify an Original EyC component and retrieve verified data from a slot.
@@ -29,7 +33,7 @@ Use cases (multiple commands):
 - `setup_608`: Configure ATECC608 with the configuration below.
 
 
-Tools:
+Tools (auxiliary):
 
 - `xor`: Get two hexadecimal strings and return the xor.
 
@@ -53,8 +57,7 @@ Slot | Key Type    | Read | Write | Usage
   12 | AES         | No   | 13    | Symmetric key. Secret. Requires authorization by key 13.
   13 | SHA         | No   | 13    | Secret to protect key 12. Require random.
   14 | ECC Public  | Yes  | Yes   | External key storage.
-  15 | Data        | Yes  | 7     | Info.
-
+  15 | Data        | Yes  | 7     | Secure info (you need to know key 7 to write it).
 
 All slots are lockable.
 

@@ -3,7 +3,7 @@ DEPS_H=atca_config.h common.h
 DEPS_C=common.c
 
 all: random chip_info sha setup_608 aes_encrypt aes_decrypt \
-	nonce_rand nonce write_8 serial mac gendig read_slot xor \
+	nonce_rand load_tempkey write_8 serial mac gendig read_slot xor \
 	check_mac state write_enc
 
 random: $(DEPS_C) $(DEPS_H) random.c
@@ -24,8 +24,8 @@ aes_encrypt: $(DEPS_C) $(DEPS_H) aes_encrypt.c
 nonce_rand: $(DEPS_C) $(DEPS_H) nonce_rand.c
 	$(GCC) -o nonce_rand nonce_rand.c $(DEPS_C)
 
-nonce: $(DEPS_C) $(DEPS_H) nonce.c
-	$(GCC) -o nonce nonce.c $(DEPS_C)
+load_tempkey: $(DEPS_C) $(DEPS_H) load_tempkey.c
+	$(GCC) -o load_tempkey load_tempkey.c $(DEPS_C)
 
 write_8: $(DEPS_C) $(DEPS_H) write_8.c
 	$(GCC) -o write_8 write_8.c $(DEPS_C)
