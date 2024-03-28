@@ -20,6 +20,7 @@ Primitives (simple commands):
 - `state`: Display device internal state.
 - `write_8`: Write data in slot 08.
 - `write_enc`: Write data using a writing key.
+- `write_slot`: Write 32 bytes of data to any slot.
 
 
 Use cases (multiple commands):

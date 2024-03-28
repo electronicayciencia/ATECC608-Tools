@@ -17,10 +17,10 @@ int main(int argc, const char **argv) {
     uint8_t ciphertext[ATCA_AES128_BLOCK_SIZE];
     
     if (argc != 3) {
-        printf("AES-128 decrypt a %d bytes block using the key in a given slot.", ATCA_AES128_BLOCK_SIZE);
+        printf("AES-128 decrypt a %d bytes block using the key in a given slot.\n", ATCA_AES128_BLOCK_SIZE);
         printf("Usage %s <slot> <data>\n", argv[0]);
         printf("Where:\n");
-        printf("    <slot> is the key slot (0-15) or TEMPKEY to use the current Tempkey as the key.");
+        printf("    <slot> is the key slot (0-15) or TEMPKEY to use the current Tempkey as the key.\n");
         printf("    <data> is the data to encrypt (%d hex bytes).\n", ATCA_AES128_BLOCK_SIZE);
         printf("Ex.: %s 3 a1f6258c877d5fcd8964484538bfc92c\n", argv[0]);
         exit(2);
