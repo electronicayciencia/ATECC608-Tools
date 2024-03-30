@@ -8,9 +8,9 @@ set -u # stop if any variable is undefined
 set -e # stop if any command fails
 
 nonce_in=0000000000000000000000000000000000000000
-key=0000000000000000000000000000000000000000000000000000000000000000
-keyslot=6
-dataslot=8
+#key=0000000000000000000000000000000000000000000000000000000000000000
+keyslot=7
+dataslot=15
 
 echo "EyC Original component verifier"
 echo 
@@ -80,14 +80,14 @@ local_mac=$(echo $mac_msg | xxd -r -p | sha256sum | cut -d ' ' -f 1)
 # Result
 ############################################
 if [ "$local_mac" = "$device_mac" ]; then
-    echo "Verdict:      Original. MAC matches  :-)"
-else
-    echo "Verdict:      Counterfeit.   :-S"
-fi
+    echo "Verdict:      Original.  :-)"
+    echo
+    echo "Data in slot $dataslot:"
+    echo $slotdata | xxd -r -p
+    echo
+    echo
 
-echo
-echo "Data in slot $dataslot:"
-echo $slotdata | xxd -r -p
-echo
-echo
+else
+    echo "Verdict:      False."
+fi
 
