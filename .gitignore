@@ -1,7 +1,8 @@
 *
 !*/
 !*.*
-*.txt
 !Makefile
 !LICENSE
 !cryptoauthlib
+*.txt
+*.sw?
