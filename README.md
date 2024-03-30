@@ -9,6 +9,7 @@ Primitives (simple commands):
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
 - `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
 - `check_mac`: Issue a Check MAC command that can also be used to authorize a key.
+- `derivekey`: Create a new key from a parent, itself and tempkey.
 - `gendig`: Issue a gendig-data command with the specified slot.
 - `load_tempkey`: Load TempKey with a given value.
 - `mac`: Generate a MAC of the TempKey + Slot Key
@@ -31,6 +32,7 @@ Use cases (multiple commands):
 - `chip_info`: Dump some information about the device.
 - `eyc_original.sh`: Verify an Original EyC component and retrieve verified data from a slot.
 - `read_encrypted.sh`: Read the contents of any slot encrypted with a Read key.
+- `rotate_key.sh`: Rotate a key from a parent key and a randon nonce.
 - `setup_608`: Configure ATECC608 with the configuration below.
 
 
