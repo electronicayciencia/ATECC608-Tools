@@ -1,6 +1,8 @@
 # ATECC608 Tools 
 
-Tools to work with Atmel Crypto-Authentication (ATCA) library and devices.
+Command-line tools to work with Atmel Crypto-Authentication (ATCA) library and devices.
+
+See *Customize* section below to setup and compile the library.
 
 ## Tools list
 
@@ -497,7 +499,8 @@ $ ./gendig 12
 Ok
 ```
 
-After this operation, you are no authorized anymore.
+After this operation, you are no authorized anymore. TempTey is valid,
+derived from key 12 and a know value.
 
 ```console
 $ ./state
@@ -520,7 +523,7 @@ $ ./aes_encrypt TEMPKEY 00000000000000000000000000000000
 75e4ca11617b83e442d28fbcdb9210a4
 ```
 
-This method is useful to encrypt multiple blocks with a limited use key. Because it only counts one use.
+This method is useful to encrypt multiple blocks with a limited use key. Because it only count as one use (the `gendig` command).
 
 Like using AES-128-CBC mode:
 
@@ -556,8 +559,11 @@ config_data->KeyConfig[slot] =
 
 ### Slot 13
 
-
 Secret to use key 12.
+
+A nonce is always required.
+
+To prevent brute force attacks, you must also set limited uses for this key.
 
 You can change this key only if you know its current value. Ex. changing from all zeros to the
 sha256 of `password`.
@@ -567,10 +573,6 @@ $ ./write_enc 13 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d
               13 0000000000000000000000000000000000000000000000000000000000000000 \
               0000000000000000000000000000000000000000
 ```
-
-A nonce is always required.
-
-To prevent brute force attacks, you must also set limited uses for this key.
 
 Configuration code:
 
@@ -598,7 +600,7 @@ TBD
 
 Data. Public read, encrypt write.
 
-Since you need to know key 7 to write it, you can use it to store updatable data.
+Since you need to know key 7 to write it, you can use it to store public data that the user can read but cannot modify.
 
 ```console
 $ ./read_slot 15 | xxd -r -p
