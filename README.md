@@ -29,12 +29,13 @@ Use cases (multiple commands):
 - `auth_aes_dec`: Decrypt a block of data using a secret symmetric key that requires Authorization
 - `auth_aes_enc`: Encrypt a block of data using a secret symmetric key that requires Authorization
 - `authorize.sh`: Performs a Check MAC with an authorization key in order to tell the device we know that key.
+- `cbc_decrypt.sh`: Decrypt data using AES-128-CBC mode.
+- `cbc_encrypt.sh`: Encrypt data using AES-128-CBC mode.
 - `chip_info`: Dump some information about the device.
 - `eyc_original.sh`: Verify an Original EyC component and retrieve verified data from a slot.
 - `read_encrypted.sh`: Read the contents of any slot encrypted with a Read key.
 - `rotate_key.sh`: Rotate a key from a parent key and a randon nonce.
 - `setup_608`: Configure ATECC608 with the configuration below.
-
 
 Tools (auxiliary):
 
@@ -514,6 +515,18 @@ $ ./aes_encrypt TEMPKEY 00000000000000000000000000000000
 ```
 
 This method is useful to encrypt multiple blocks with a limited use key. Because it only counts one use.
+
+Like using AES-128-CBC mode:
+
+```console
+$ cat LICENSE | ./cbc_encrypt.sh TEMPKEY > LICENSE.aes
+```
+
+To decrypt it:
+
+```console
+$ cat LICENSE.aes | ./cbc_encrypt.sh TEMPKEY
+```
 
 
 Configuration code:

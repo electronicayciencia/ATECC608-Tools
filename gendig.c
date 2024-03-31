@@ -29,7 +29,7 @@ int main(int argc, const char **argv) {
         exit(2);
     }
 
-    printf("Slot id %d\n", slotid);
+    //printf("Slot id %d\n", slotid);
 
     // initialize CryptoAuthLib for an ECC default I2C interface
     if (atcab_init(&cfg_atecc608_i2c) != ATCA_SUCCESS) {
