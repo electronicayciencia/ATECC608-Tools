@@ -44,6 +44,10 @@ Tools (auxiliary):
 
 ## Setup 608 configuration
 
+This is a configuration proposal in order to try multiple things in this chip.
+
+Run `setup_608` to set up your device.
+
 ### Summary
 
 Slot | Key Type    | Read | Write | Usage
@@ -131,9 +135,11 @@ OTP EEPROM value will be like this:
 
 Counters 0 and 1 are initialized to 1000.
 
-### Detailed keys purpose
+## Detailed keys purpose
 
-#### Slot 0
+Use cases and examples for the keys with above configuration.
+
+### Slot 0
 
 Private key to sign with the device.
 
@@ -164,7 +170,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 1
+### Slot 1
 
 Symmetric AES key for encription/decryption of external input data.
 
@@ -200,7 +206,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 2
+### Slot 2
 
 Like key 1 but with **limited uses**.
 
@@ -225,7 +231,7 @@ config_data->KeyConfig[slot] =
 ```
 
 
-#### Slot 3
+### Slot 3
 
 Like key 1, but publicly readable and writable.
 
@@ -269,7 +275,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 4
+### Slot 4
 
 Shared secret for MAC generation.
 
@@ -298,7 +304,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 5
+### Slot 5
 
 Like slot 4 but with **limited uses**.
 
@@ -323,7 +329,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 6
+### Slot 6
 
 Like key 1, but publicly readable and writable.
 
@@ -343,7 +349,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 7
+### Slot 7
 
 Shared secret for I/O. This key can be used to read and write any other key that requires
 encrypted read or write (except key 12).
@@ -375,7 +381,7 @@ config_data->KeyConfig[slot] =
 ```
 
 
-#### Slot 8
+### Slot 8
 
 This is the longest slot in the device. It is publicly writable and readable.
 You can use it to store arbitrary public data.
@@ -415,7 +421,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 9
+### Slot 9
 
 Public key. You can use it to store slot 0's public part.
 
@@ -437,15 +443,15 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 10
+### Slot 10
 
 TBD
 
-#### Slot 11
+### Slot 11
 
 TBD
 
-#### Slot 12
+### Slot 12
 
 Secret AES. This is a secret key, unkown. 
 
@@ -548,7 +554,7 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 13
+### Slot 13
 
 
 Secret to use key 12.
@@ -584,11 +590,11 @@ config_data->KeyConfig[slot] =
   ;
 ```
 
-#### Slot 14
+### Slot 14
 
 TBD
 
-#### Slot 15
+### Slot 15
 
 Data. Public read, encrypt write.
 
