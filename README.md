@@ -636,27 +636,44 @@ things.
 
 ### Compile the library
 
-In Raspberry Pi with native I2C HAL:
+Create a directory:
 
-```console
-cd cryptoauthlib
-cmake . -DATCA_HAL_I2C:BOOL=ON
-make
-```
+    mkdir ~/git && cd ~/git
+
+Clone the repository:
+
+    git clone https://github.com/electronicayciencia/ATECC608-Tools.git
+
+Enter the main directory and update the library:
+
+    cd ATECC608-Tools
+    git submodule update --init --recursive
+
+Build the library with your preferred options:
+
+    cd cryptauthlib
+    cmake -DATCA_PKCS11:STRING=ON -DATCA_HAL_I2C=ON .
+    make
 
 The file `cryptoauthlib/lib/libcryptoauth.so` is created.
+
 
 ### Applications
 
 Run `make` to build all the binaries.
 
+    cd ..
+    make
+
 ## Run
 
-Export the library. Also setup `~/.bashrc`:
+Export the library path:
 
 ```bash
 export LD_LIBRARY_PATH=$HOME/atca/cryptoauthlib/lib
 ```
+
+Optionally, edit `~/.bashrc` to include that line.
 
 To inspect I2C messages, set `ATCA_TRACE` env. var.:
 
