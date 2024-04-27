@@ -638,7 +638,7 @@ things.
 
 Create a directory:
 
-    mkdir ~/git && cd ~/git
+    mkdir ~/atca && cd ~/atca
 
 Clone the repository:
 
@@ -651,7 +651,7 @@ Enter the main directory and update the library:
 
 Build the library with your preferred options:
 
-    cd cryptauthlib
+    cd cryptoauthlib
     cmake -DATCA_PKCS11:STRING=ON -DATCA_HAL_I2C=ON .
     make
 
