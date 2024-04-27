@@ -1,4 +1,5 @@
-GCC=gcc -Icryptoauthlib/lib -Lcryptoauthlib/lib -lcryptoauth
+GCC=gcc -Icryptoauthlib/lib -Lcryptoauthlib/lib
+LIB=-lcryptoauth
 DEPS_H=atca_config.h common.h
 DEPS_C=common.c
 
@@ -14,5 +15,5 @@ clean:
 	rm -f $(binaries) *.o
 
 $(binaries): %: %.c $(DEPS_H) $(DEPS_C)
-	$(GCC) -o $@ $< $(DEPS_C)
+	$(GCC) -o $@ $< $(DEPS_C) $(LIB)
 
