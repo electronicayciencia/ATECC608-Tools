@@ -6,27 +6,41 @@ See *Customize* section below to setup and compile the library.
 
 ## Tools list
 
-Primitives (simple commands):
+### Primitives (simple commands)
+
+Asimmetric encryption:
+
+- `genecckey`: Create an ECC private key and store it in the given slot.
+
+
+Simmetric encryption:
 
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
 - `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
-- `check_mac`: Issue a Check MAC command that can also be used to authorize a key.
 - `derivekey`: Create a new key from a parent, itself and tempkey.
+
+
+Hash:
+
 - `gendig`: Issue a gendig-data command with the specified slot.
-- `load_tempkey`: Load TempKey with a given value.
 - `mac`: Generate a MAC of the TempKey + Slot Key
+- `sha`: Calculate SHA256 of the message.
+
+
+Utilities:
+
+- `load_tempkey`: Load TempKey with a given value.
 - `nonce_rand`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
 - `read_slot`: Read the first 32 bits from a data slot (cleartext)
 - `serial`: Get the chip's serial number.
-- `sha`: Calculate SHA256 of the message.
 - `state`: Display device internal state.
 - `write_8`: Write data in slot 08.
 - `write_enc`: Write data using a writing key.
 - `write_slot`: Write 32 bytes of data to any slot.
 
 
-Use cases (multiple commands):
+### Use cases (multiple commands)
 
 - `auth_aes_dec`: Decrypt a block of data using a secret symmetric key that requires Authorization
 - `auth_aes_enc`: Encrypt a block of data using a secret symmetric key that requires Authorization
@@ -39,7 +53,7 @@ Use cases (multiple commands):
 - `rotate_key.sh`: Rotate a key from a parent key and a randon nonce.
 - `setup_608`: Configure ATECC608 with the configuration below.
 
-Tools (auxiliary):
+### Tools (auxiliary)
 
 - `xor`: Get two hexadecimal strings and return the xor.
 
