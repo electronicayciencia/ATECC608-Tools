@@ -5,7 +5,8 @@ DEPS_C=common.c
 
 binaries = random chip_info sha setup_608 aes_encrypt aes_decrypt \
 	nonce_rand load_tempkey write_8 serial mac gendig read_slot xor \
-	check_mac state write_enc write_slot derivekey genecckey pubkey
+	check_mac state write_enc write_slot derivekey genecckey pubkey \
+  sign
 
 .PHONY: clean all
 

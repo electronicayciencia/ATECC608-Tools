@@ -12,6 +12,7 @@ Asimmetric encryption:
 - `genecckey`: Create an ECC private key, store it in the given slot and return
   the public parameters.
 - `pubkey`: Calculate the public key from an existing private key in a slot.
+- `sign`: Sign Tempkey using ECDSA algorithm with the private key in the slot.
 
 Simmetric encryption:
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
