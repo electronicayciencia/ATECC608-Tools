@@ -9,29 +9,25 @@ See *Customize* section below to setup and compile the library.
 ### Primitives (simple commands)
 
 Asimmetric encryption:
-
-- `genecckey`: Create an ECC private key and store it in the given slot.
-
+- `genecckey`: Create an ECC private key, store it in the given slot and return
+  the public parameters.
 
 Simmetric encryption:
-
 - `aes_decrypt`: AES128 decrypt a block using a key in a given slot.
 - `aes_encrypt`: AES128 encrypt a block using a key in a given slot.
 - `derivekey`: Create a new key from a parent, itself and tempkey.
 
-
 Hash:
-
 - `gendig`: Issue a gendig-data command with the specified slot.
 - `mac`: Generate a MAC of the TempKey + Slot Key
 - `sha`: Calculate SHA256 of the message.
 
-
-Utilities:
-
-- `load_tempkey`: Load TempKey with a given value.
+Random:
 - `nonce_rand`: Generate a random nonce with a challenge.
 - `random`: Retrieve a random number (or `FF FF 00 00 ...` if unlocked)
+
+Utilities:
+- `load_tempkey`: Load TempKey with a given value.
 - `read_slot`: Read the first 32 bits from a data slot (cleartext)
 - `serial`: Get the chip's serial number.
 - `state`: Display device internal state.
