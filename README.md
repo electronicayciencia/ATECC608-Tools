@@ -50,6 +50,7 @@ Utilities:
 - `read_encrypted.sh`: Read the contents of any slot encrypted with a Read key.
 - `rotate_key.sh`: Rotate a key from a parent key and a randon nonce.
 - `setup_608`: Configure ATECC608 with the configuration below.
+- `symauth_diversified.sh`: Like `eyc_original.sh` but using device diversified key.
 
 ### Tools (auxiliary)
 
@@ -200,6 +201,15 @@ Example:
 ```console
 $ ./aes_encrypt 1 00000000000000000000000000000000
 ec85f660317fc53302b54d1fa7dab892
+```
+
+Read contents:
+```console
+$ ./read_encrypted.sh 1 7 0000000000000000000000000000000000000000000000000000000000000000
+Reading data from slot: 1
+Read key in slot: 7
+
+Data: c54189118ec12e5691d2b830f19426fd78f218d44f345bf05afb44ab4b92efd6
 ```
 
 

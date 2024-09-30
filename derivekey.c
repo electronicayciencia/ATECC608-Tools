@@ -19,7 +19,7 @@ int main(int argc, const char **argv) {
         printf("Usage %s <keyid> <mode> [mac]\n", argv[0]);
         printf("Where:\n");
         printf("    <keyid> is the target key slot (0-15).\n");
-        printf("    <mode> is 1 if Tempkey source is random and 0 otherwise.\n");
+        printf("    <mode> is 0 if Tempkey source is random nonce and 1 otherwise.\n");
         printf("    <mac> is an optional MAC to validate operation (%d hexadecimal bytes).\n", DERIVE_KEY_MAC_SIZE);
         printf("Ex.: %s 5 1 0000000000000000000000000000000000000000000000000000000000000000\n", argv[0]);
         exit(2);
