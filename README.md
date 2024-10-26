@@ -4,6 +4,9 @@ Command-line tools to work with Atmel Crypto-Authentication (ATCA) library and d
 
 See *Customize* section below to setup and compile the library.
 
+Full article (**spanish**): [Chips criptográficos de usar y tirar](https://www.electronicayciencia.com/2024/10/cripto-desechable.html)
+
+
 ## Tools list
 
 ### Primitives (simple commands)
